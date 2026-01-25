@@ -1,0 +1,268 @@
+# Device Information Template for Infinix Note 11
+# Use this template to configure device-specific identifiers
+
+# ============================================================================
+# DEVICE IDENTITY
+# ============================================================================
+
+# Device codename (used in ro.product.device)
+DEVICE_CODENAME=X6517
+
+# Device model name (shown in Settings > About Phone)
+DEVICE_MODEL="Infinix NOTE 11"
+
+# Product name (used in builds)
+PRODUCT_NAME=X6517-OP
+
+# Brand
+BRAND=Infinix
+
+# Manufacturer
+MANUFACTURER=INFINIX
+
+# Board/Platform
+BOARD=mt6769
+PLATFORM=mt6769
+
+# ============================================================================
+# HARDWARE SPECIFICATIONS
+# ============================================================================
+
+# SoC Information
+SOC_MANUFACTURER=MediaTek
+SOC_MODEL=MT6769H
+SOC_VARIANT=Helio G88
+
+# CPU Configuration
+CPU_CORES=8
+CPU_ARCH=arm64-v8a
+CPU_ABI=arm64-v8a,armeabi-v7a,armeabi
+CPU_FREQ_MAX=2000000  # 2.0 GHz
+
+# GPU
+GPU_VENDOR=ARM
+GPU_MODEL=Mali-G52 MC2
+GPU_FREQ_MAX=1000000  # 1.0 GHz
+
+# Memory (in MB)
+RAM_SIZE=6144   # 6GB (or 8192 for 8GB variant)
+
+# Storage (in MB)
+STORAGE_SIZE=131072  # 128GB
+
+# ============================================================================
+# DISPLAY SPECIFICATIONS
+# ============================================================================
+
+DISPLAY_WIDTH=1080
+DISPLAY_HEIGHT=2400
+DISPLAY_DENSITY=480  # DPI
+DISPLAY_REFRESH_RATE=60  # Hz
+DISPLAY_SIZE=6.7  # inches
+
+# ============================================================================
+# CAMERA SPECIFICATIONS
+# ============================================================================
+
+# Rear Camera
+CAMERA_REAR_MP=50
+CAMERA_REAR_SENSOR=Samsung S5KGM2
+
+# Front Camera
+CAMERA_FRONT_MP=16
+CAMERA_FRONT_SENSOR=OV16A1Q
+
+# ============================================================================
+# BUILD FINGERPRINT TEMPLATE
+# ============================================================================
+
+# Build fingerprint format:
+# BRAND/PRODUCT/DEVICE:ANDROID_VER/BUILD_ID/BUILD_NUMBER:BUILD_TYPE/RELEASE_KEYS
+
+# Example for Android 13:
+# Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+BUILD_FINGERPRINT_BRAND=Infinix
+BUILD_FINGERPRINT_PRODUCT=X6517-OP
+BUILD_FINGERPRINT_DEVICE=X6517
+BUILD_FINGERPRINT_ANDROID_VER=13
+BUILD_FINGERPRINT_BUILD_ID=TP1A.220624.014
+BUILD_FINGERPRINT_BUILD_NUMBER=240115V890
+BUILD_FINGERPRINT_BUILD_TYPE=user
+BUILD_FINGERPRINT_KEYS=release-keys
+
+# ============================================================================
+# PARTITION LAYOUT
+# ============================================================================
+
+# Super partition size (in bytes)
+SUPER_PARTITION_SIZE=9663676416  # ~9 GB
+
+# Individual partition sizes (in bytes)
+SYSTEM_PARTITION_SIZE=2147483648     # 2 GB
+SYSTEM_EXT_PARTITION_SIZE=536870912  # 512 MB
+PRODUCT_PARTITION_SIZE=402653184     # 384 MB
+VENDOR_PARTITION_SIZE=573741824      # 547 MB
+
+# Partition group sizes
+GROUP_MAIN_A_SIZE=4831838208  # ~4.5 GB
+GROUP_MAIN_B_SIZE=4831838208  # ~4.5 GB
+
+# ============================================================================
+# ANDROID VERSION
+# ============================================================================
+
+# Stock Android version (original)
+STOCK_ANDROID_VERSION=12
+STOCK_SDK_VERSION=31
+
+# Target Android version (after porting)
+TARGET_ANDROID_VERSION=13
+TARGET_SDK_VERSION=33
+
+# Security patch level
+SECURITY_PATCH_LEVEL=2024-11-05
+
+# ============================================================================
+# CONNECTIVITY
+# ============================================================================
+
+# WiFi
+WIFI_CHIP=MT6631
+WIFI_BANDS=2.4GHz,5GHz
+WIFI_STANDARD=802.11a/b/g/n/ac
+
+# Bluetooth
+BT_VERSION=5.0
+
+# Cellular
+MODEM_CHIP=MT6769H integrated
+NETWORK_TYPE=4G LTE
+SIM_SLOTS=2
+
+# GPS
+GPS_CHIP=MT6631
+GPS_SUPPORT=GPS,GLONASS,Galileo,Beidou
+
+# NFC
+NFC_SUPPORT=no
+
+# ============================================================================
+# SENSORS
+# ============================================================================
+
+SENSOR_ACCELEROMETER=yes
+SENSOR_GYROSCOPE=yes
+SENSOR_PROXIMITY=yes
+SENSOR_LIGHT=yes
+SENSOR_COMPASS=yes
+SENSOR_FINGERPRINT=yes
+SENSOR_FINGERPRINT_TYPE=side-mounted  # or "under-display"
+
+# ============================================================================
+# BATTERY
+# ============================================================================
+
+BATTERY_CAPACITY=5000  # mAh
+BATTERY_TYPE=Li-Polymer
+CHARGING_TYPE=USB Type-C
+FAST_CHARGING=yes
+FAST_CHARGING_WATT=18  # Watts
+
+# ============================================================================
+# AUDIO
+# ============================================================================
+
+AUDIO_CHIP=MT6359
+HEADPHONE_JACK=yes
+SPEAKER_TYPE=single  # or "dual"
+HI_RES_AUDIO=no
+
+# ============================================================================
+# BOOTLOADER
+# ============================================================================
+
+BOOTLOADER_VENDOR=MediaTek
+BOOTLOADER_UNLOCKABLE=yes
+BOOTLOADER_VERSION=INFINIX-NOTE11-V1.0
+
+# ============================================================================
+# VENDOR SPECIFIC
+# ============================================================================
+
+# XOS Version (Infinix custom UI)
+XOS_VERSION=10.6
+
+# Build info
+BUILD_DATE=20240115
+BUILD_TYPE=user
+BUILD_TAGS=release-keys
+
+# ============================================================================
+# PROPERTY OVERRIDES
+# ============================================================================
+
+# These will be applied to build.prop
+
+# Device properties
+PROP_ro_product_device=${DEVICE_CODENAME}
+PROP_ro_product_model=${DEVICE_MODEL}
+PROP_ro_product_name=${PRODUCT_NAME}
+PROP_ro_product_brand=${BRAND}
+PROP_ro_product_manufacturer=${MANUFACTURER}
+
+# Platform properties
+PROP_ro_hardware=${BOARD}
+PROP_ro_board_platform=${PLATFORM}
+PROP_ro_soc_manufacturer=${SOC_MANUFACTURER}
+PROP_ro_soc_model=${SOC_MODEL}
+
+# Display properties
+PROP_ro_sf_lcd_density=${DISPLAY_DENSITY}
+
+# Memory properties
+PROP_dalvik_vm_heapsize=512m
+PROP_dalvik_vm_heapgrowthlimit=256m
+PROP_dalvik_vm_heapmaxfree=8m
+
+# ============================================================================
+# DEVICE TREE PROPERTIES
+# ============================================================================
+
+# These are used in device tree source (.dts)
+
+DT_MODEL="Infinix NOTE 11"
+DT_COMPATIBLE="infinix,note11","mediatek,mt6769"
+
+# Memory base address (from device tree)
+DT_MEMORY_BASE=0x40000000
+
+# ============================================================================
+# VENDOR BLOB IDENTIFICATION
+# ============================================================================
+
+# Critical vendor blobs that MUST be preserved from Note 11
+
+PRESERVE_AUDIO_HAL=vendor/lib64/hw/audio.primary.mt6769.so
+PRESERVE_CAMERA_HAL=vendor/lib64/hw/camera.provider@2.6-impl-mediatek.so
+PRESERVE_DISPLAY_HAL=vendor/lib64/hw/hwcomposer.mt6769.so
+PRESERVE_RIL=vendor/lib64/libmtk-ril.so
+PRESERVE_SENSORS_HAL=vendor/lib64/hw/sensors.mt6769.so
+
+# Firmware files to preserve
+PRESERVE_MODEM_FW=vendor/firmware/modem_1_lwg_n.img
+PRESERVE_WIFI_FW=vendor/firmware/WIFI_RAM_CODE_MT6631.bin
+PRESERVE_BT_FW=vendor/firmware/BT_RAM_CODE_MT6631_1_2_hdr.bin
+
+# ============================================================================
+# USAGE NOTES
+# ============================================================================
+
+# 1. Copy this file to note11_device_info.conf
+# 2. Modify values as needed for your specific device variant
+# 3. Use with scripts:
+#    source config/note11_device_info.conf
+#    python3 scripts/build_prop_adapter.py --device-config note11_device_info.conf
+#
+# 4. Generate build fingerprint:
+#    ${BUILD_FINGERPRINT_BRAND}/${BUILD_FINGERPRINT_PRODUCT}/${BUILD_FINGERPRINT_DEVICE}:${BUILD_FINGERPRINT_ANDROID_VER}/${BUILD_FINGERPRINT_BUILD_ID}/${BUILD_FINGERPRINT_BUILD_NUMBER}:${BUILD_FINGERPRINT_BUILD_TYPE}/${BUILD_FINGERPRINT_KEYS}

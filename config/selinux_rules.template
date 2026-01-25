@@ -1,0 +1,311 @@
+# SELinux Additional Rules Template for ROM Porting
+# Android 12 (Note 11) Vendor → Android 13 (Hot 30) System
+#
+# Place this file in vendor/etc/selinux/ or compile into vendor SELinux policy
+# These rules bridge compatibility between Android 12 vendor HALs and Android 13 system
+
+# =============================================================================
+# VENDOR HAL SYSTEM LIBRARY ACCESS
+# =============================================================================
+
+# Allow vendor HALs to access system libraries
+# Needed because Android 13 system libraries may be required by Android 12 vendor HALs
+allow vendor_hal_domain system_lib_file:dir r_dir_perms;
+allow vendor_hal_domain system_lib_file:file r_file_perms;
+
+# Allow vendor HALs to access system_ext libraries
+allow vendor_hal_domain system_ext_lib_file:dir r_dir_perms;
+allow vendor_hal_domain system_ext_lib_file:file r_file_perms;
+
+# Allow vendor processes to use system linker namespace
+allow vendor_hal_domain system_linker_exec:file rx_file_perms;
+
+# =============================================================================
+# PROPERTY SERVICE ACCESS
+# =============================================================================
+
+# Allow system_server to read vendor properties
+get_prop(system_server, vendor_default_prop)
+get_prop(system_server, vendor_camera_prop)
+get_prop(system_server, vendor_audio_prop)
+get_prop(system_server, vendor_radio_prop)
+get_prop(system_server, vendor_mtk_prop)
+
+# Allow system_server to set certain vendor properties (use sparingly)
+# set_prop(system_server, vendor_default_prop)
+
+# Allow vendor HALs to set their own properties
+set_prop(hal_camera_default, vendor_camera_prop)
+set_prop(hal_audio_default, vendor_audio_prop)
+set_prop(hal_graphics_composer_default, vendor_display_prop)
+set_prop(rild, vendor_radio_prop)
+
+# =============================================================================
+# CAMERA HAL
+# =============================================================================
+
+# Camera HAL access to vendor camera data
+allow hal_camera_default vendor_camera_data_file:dir create_dir_perms;
+allow hal_camera_default vendor_camera_data_file:file create_file_perms;
+
+# Camera HAL access to camera device nodes
+allow hal_camera_default vendor_camera_device:chr_file rw_file_perms;
+
+# CameraServer access to vendor properties
+allow cameraserver vendor_camera_prop:file r_file_perms;
+get_prop(cameraserver, vendor_camera_prop)
+
+# Camera HAL binder communication
+binder_call(hal_camera_default, system_server)
+binder_call(system_server, hal_camera_default)
+
+# Camera HAL access to GPU for processing
+allow hal_camera_default gpu_device:chr_file rw_file_perms;
+
+# =============================================================================
+# AUDIO HAL
+# =============================================================================
+
+# Audio HAL access to vendor audio data
+allow hal_audio_default vendor_audio_data_file:dir create_dir_perms;
+allow hal_audio_default vendor_audio_data_file:file create_file_perms;
+
+# Audio HAL access to audio devices
+allow hal_audio_default audio_device:chr_file rw_file_perms;
+allow hal_audio_default audio_device:dir r_dir_perms;
+
+# AudioServer access to vendor properties
+allow audioserver vendor_audio_prop:file r_file_perms;
+get_prop(audioserver, vendor_audio_prop)
+
+# Audio HAL mixer paths configuration
+allow hal_audio_default vendor_audio_configs_file:dir r_dir_perms;
+allow hal_audio_default vendor_audio_configs_file:file r_file_perms;
+
+# =============================================================================
+# DISPLAY / GRAPHICS HAL
+# =============================================================================
+
+# HWComposer access to display devices
+allow hal_graphics_composer_default graphics_device:chr_file rw_file_perms;
+allow hal_graphics_composer_default graphics_device:dir r_dir_perms;
+
+# Gralloc access to ion allocator
+allow hal_graphics_allocator_default ion_device:chr_file rw_file_perms;
+
+# SurfaceFlinger access to vendor GPU libraries
+allow surfaceflinger vendor_hal_file:file r_file_perms;
+allow surfaceflinger vendor_hal_file:dir r_dir_perms;
+
+# Display HAL properties
+get_prop(hal_graphics_composer_default, vendor_display_prop)
+set_prop(hal_graphics_composer_default, vendor_display_prop)
+
+# =============================================================================
+# RADIO / TELEPHONY
+# =============================================================================
+
+# RIL daemon access to radio devices
+allow rild radio_device:chr_file rw_file_perms;
+allow rild vendor_radio_data_file:dir create_dir_perms;
+allow rild vendor_radio_data_file:file create_file_perms;
+
+# RIL property access
+allow radio vendor_radio_prop:property_service set;
+get_prop(radio, vendor_radio_prop)
+set_prop(radio, vendor_radio_prop)
+
+# RIL access to modem device
+allow rild vendor_modem_device:chr_file rw_file_perms;
+
+# Phone app access to radio HAL
+binder_call(radio, hal_telephony_default)
+binder_call(hal_telephony_default, radio)
+
+# RIL access to EFS/NV partitions (IMEI storage)
+allow rild efs_file:dir create_dir_perms;
+allow rild efs_file:file create_file_perms;
+
+# =============================================================================
+# SENSORS HAL
+# =============================================================================
+
+# Sensors HAL access to sensor devices
+allow hal_sensors_default sensor_device:chr_file rw_file_perms;
+allow hal_sensors_default vendor_sensors_data_file:dir create_dir_perms;
+allow hal_sensors_default vendor_sensors_data_file:file create_file_perms;
+
+# Sensors HAL properties
+get_prop(hal_sensors_default, vendor_sensors_prop)
+
+# =============================================================================
+# GPS / LOCATION
+# =============================================================================
+
+# GPS daemon (mtk_agpsd) access
+allow mtk_hal_gnss gnss_device:chr_file rw_file_perms;
+allow mtk_hal_gnss vendor_gps_data_file:dir create_dir_perms;
+allow mtk_hal_gnss vendor_gps_data_file:file create_file_perms;
+
+# GPS properties
+get_prop(mtk_hal_gnss, vendor_gps_prop)
+
+# =============================================================================
+# FINGERPRINT HAL
+# =============================================================================
+
+# Fingerprint HAL access to sensor
+allow hal_fingerprint_default fingerprint_device:chr_file rw_file_perms;
+allow hal_fingerprint_default vendor_fingerprint_data_file:dir create_dir_perms;
+allow hal_fingerprint_default vendor_fingerprint_data_file:file create_file_perms;
+
+# Fingerprint HAL binder communication
+binder_call(hal_fingerprint_default, system_server)
+binder_call(system_server, hal_fingerprint_default)
+
+# =============================================================================
+# BLUETOOTH
+# =============================================================================
+
+# Bluetooth HAL access
+allow hal_bluetooth_default bluetooth_device:chr_file rw_file_perms;
+allow hal_bluetooth_default vendor_bluetooth_data_file:dir create_dir_perms;
+allow hal_bluetooth_default vendor_bluetooth_data_file:file create_file_perms;
+
+# Bluetooth firmware loading
+allow hal_bluetooth_default vendor_firmware_file:dir r_dir_perms;
+allow hal_bluetooth_default vendor_firmware_file:file r_file_perms;
+
+# =============================================================================
+# WIFI HAL
+# =============================================================================
+
+# WiFi HAL access to wifi device
+allow hal_wifi_default wifi_device:chr_file rw_file_perms;
+allow hal_wifi_supplicant wifi_data_file:dir create_dir_perms;
+allow hal_wifi_supplicant wifi_data_file:file create_file_perms;
+
+# WiFi firmware loading
+allow hal_wifi_default vendor_firmware_file:dir r_dir_perms;
+allow hal_wifi_default vendor_firmware_file:file r_file_perms;
+
+# =============================================================================
+# THERMAL HAL
+# =============================================================================
+
+# Thermal HAL access to thermal zones
+allow hal_thermal_default sysfs_thermal:dir r_dir_perms;
+allow hal_thermal_default sysfs_thermal:file rw_file_perms;
+allow hal_thermal_default sysfs_thermal:lnk_file r_file_perms;
+
+# Thermal configuration
+allow hal_thermal_default vendor_thermal_configs_file:dir r_dir_perms;
+allow hal_thermal_default vendor_thermal_configs_file:file r_file_perms;
+
+# =============================================================================
+# POWER HAL
+# =============================================================================
+
+# Power HAL access to power management
+allow hal_power_default sysfs_power:file rw_file_perms;
+allow hal_power_default sysfs_power:dir r_dir_perms;
+
+# Power HAL properties
+get_prop(hal_power_default, vendor_power_prop)
+set_prop(hal_power_default, vendor_power_prop)
+
+# =============================================================================
+# MEDIATEK SPECIFIC
+# =============================================================================
+
+# MTK Performance Service
+allow mtk_hal_default vendor_mtk_data_file:dir create_dir_perms;
+allow mtk_hal_default vendor_mtk_data_file:file create_file_perms;
+
+# MTK APU (AI Processing Unit)
+allow mtk_hal_default apu_device:chr_file rw_file_perms;
+
+# MTK VPU (Vision Processing Unit)  
+allow mtk_hal_default vpu_device:chr_file rw_file_perms;
+
+# =============================================================================
+# VENDOR FIRMWARE ACCESS
+# =============================================================================
+
+# Allow HALs to read vendor firmware
+allow vendor_hal_domain vendor_firmware_file:dir r_dir_perms;
+allow vendor_hal_domain vendor_firmware_file:file r_file_perms;
+
+# Firmware loading by init
+allow init vendor_firmware_file:dir r_dir_perms;
+allow init vendor_firmware_file:file r_file_perms;
+
+# =============================================================================
+# CROSS-VERSION COMPATIBILITY
+# =============================================================================
+
+# Allow Android 12 vendor binaries to work with Android 13 system
+
+# VNDK library access
+allow vendor_hal_domain vndk_sp_file:dir r_dir_perms;
+allow vendor_hal_domain vndk_sp_file:file r_file_perms;
+
+# Vendor processes accessing system services
+binder_call(vendor_hal_domain, system_server)
+binder_call(system_server, vendor_hal_domain)
+
+# =============================================================================
+# DEBUGGING RULES (REMOVE IN PRODUCTION)
+# =============================================================================
+
+# Uncomment these only for debugging, remove in production builds
+
+# Allow additional debugging
+# userdebug_or_eng(`
+#   # More permissive ptrace for debugging
+#   allow domain domain:process ptrace;
+#   
+#   # Shell access to vendor files
+#   allow shell vendor_file:file r_file_perms;
+#   allow shell vendor_file:dir r_dir_perms;
+# ')
+
+# Verbose denial logging (increases log spam)
+# auditallow domain domain:process ptrace;
+
+# =============================================================================
+# NOTES AND WARNINGS
+# =============================================================================
+
+# IMPORTANT:
+# 1. These rules should be as specific as possible
+# 2. Avoid using wildcards (domain, file, etc.) in production
+# 3. Test thoroughly in permissive mode first
+# 4. Check for denials: adb logcat | grep "avc: denied"
+# 5. Remove debugging rules before release
+# 6. Document why each rule is needed
+#
+# To apply these rules:
+# 1. Convert to CIL format if needed
+# 2. Place in /vendor/etc/selinux/
+# 3. Rebuild vendor partition
+# 4. Flash and test
+#
+# To check if rules are working:
+# adb shell getenforce              # Should show "Enforcing"
+# adb logcat | grep "avc: denied"   # Should show minimal denials
+# adb shell "ps -Z"                 # Check process contexts
+# adb shell "ls -Z /vendor"         # Check file contexts
+
+# =============================================================================
+# ADDITIONAL DEVICE-SPECIFIC RULES
+# =============================================================================
+
+# Add device-specific rules below as needed during testing
+# Format:
+# # Description of why this rule is needed
+# allow source_type target_type:class permission;
+
+# Example:
+# # Note 11 camera requires access to custom sysfs node
+# allow hal_camera_default sysfs_camera_custom:file rw_file_perms;

@@ -1,0 +1,297 @@
+# Build.prop Patch File for ROM Porting
+# Hot 30 (Android 13) → Note 11
+#
+# This file shows the exact changes needed in build.prop files
+# Apply these changes manually or use build_prop_adapter.py
+
+# =============================================================================
+# SYSTEM BUILD.PROP CHANGES
+# =============================================================================
+
+--- system/build.prop (Hot 30 - Source)
++++ system/build.prop (Note 11 - Adapted)
+
+@@ DEVICE IDENTITY @@
+-ro.product.device=Infinix-X6815
+-ro.product.model=Infinix HOT 30
+-ro.product.name=X6815-OP
+-ro.product.board=k69v1_64_hot30
++ro.product.device=X6517
++ro.product.model=Infinix NOTE 11
++ro.product.name=X6517-OP
++ro.product.board=k69v1_64_note11
+
+-ro.build.product=Infinix-X6815
++ro.build.product=X6517
+
+# Brand and manufacturer (unchanged)
+ ro.product.brand=Infinix
+ ro.product.manufacturer=INFINIX
+
+@@ DEVICE VARIANT PROPERTIES @@
+-ro.product.vendor.device=Infinix-X6815
+-ro.product.vendor.model=Infinix HOT 30
+-ro.product.vendor.name=X6815-OP
++ro.product.vendor.device=X6517
++ro.product.vendor.model=Infinix NOTE 11
++ro.product.vendor.name=X6517-OP
+
+-ro.product.system.device=Infinix-X6815
+-ro.product.system.model=Infinix HOT 30
+-ro.product.system.name=X6815-OP
++ro.product.system.device=X6517
++ro.product.system.model=Infinix NOTE 11
++ro.product.system.name=X6517-OP
+
+-ro.product.odm.device=Infinix-X6815
+-ro.product.odm.model=Infinix HOT 30
+-ro.product.odm.name=X6815-OP
++ro.product.odm.device=X6517
++ro.product.odm.model=Infinix NOTE 11
++ro.product.odm.name=X6517-OP
+
+@@ BUILD FINGERPRINT @@
+-ro.build.fingerprint=Infinix/X6815-OP/Infinix-X6815:13/TP1A.220624.014/240120V1234:user/release-keys
++ro.build.fingerprint=Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+-ro.vendor.build.fingerprint=Infinix/X6815-OP/Infinix-X6815:13/TP1A.220624.014/240120V1234:user/release-keys
++ro.vendor.build.fingerprint=Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+-ro.system.build.fingerprint=Infinix/X6815-OP/Infinix-X6815:13/TP1A.220624.014/240120V1234:user/release-keys
++ro.system.build.fingerprint=Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+-ro.bootimage.build.fingerprint=Infinix/X6815-OP/Infinix-X6815:13/TP1A.220624.014/240120V1234:user/release-keys
++ro.bootimage.build.fingerprint=Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+@@ BUILD DESCRIPTION @@
+-ro.build.description=full_k69v1_64_hot30-user 13 TP1A.220624.014 240120V1234 release-keys
++ro.build.description=full_k69v1_64_note11-user 13 TP1A.220624.014 240115V890 release-keys
+
+@@ ANDROID VERSION (KEEP FROM SOURCE) @@
+ ro.build.version.sdk=33
+ ro.build.version.release=13
+ ro.build.version.release_or_codename=13
+-ro.build.version.security_patch=2024-11-05
++ro.build.version.security_patch=2024-11-05
+
+@@ BUILD INFO @@
+-ro.build.display.id=Infinix-X6815-user 13 TP1A.220624.014 240120V1234 release-keys
++ro.build.display.id=X6517-user 13 TP1A.220624.014 240115V890 release-keys
+
+-ro.build.id=TP1A.220624.014.HOT30
++ro.build.id=TP1A.220624.014.NOTE11
+
+-ro.build.date=Sat Jan 20 10:30:00 UTC 2024
+-ro.build.date.utc=1705745400
++ro.build.date=Mon Jan 15 08:00:00 UTC 2024
++ro.build.date.utc=1705305600
+
+@@ DISPLAY DENSITY @@
+-ro.sf.lcd_density=440
++ro.sf.lcd_density=480
+
+@@ DEVICE SPECIFIC CONFIGS (UPDATE IF DIFFERENT) @@
+# Screen size/resolution may differ
+-persist.sys.realdisplaysize_x=1080
+-persist.sys.realdisplaysize_y=2460
++persist.sys.realdisplaysize_x=1080
++persist.sys.realdisplaysize_y=2400
+
+# Ringtone/Notification sounds (device-specific)
+-ro.config.ringtone=Infinix_tune.ogg
+-ro.config.notification_sound=pixiedust.ogg
++ro.config.ringtone=Note11_ringtone.ogg
++ro.config.notification_sound=Note11_notification.ogg
+
+# =============================================================================
+# VENDOR BUILD.PROP CHANGES
+# =============================================================================
+
+--- vendor/build.prop (Hot 30 - Source)
++++ vendor/build.prop (Note 11 - Adapted)
+
+@@ DEVICE IDENTITY @@
+-ro.product.vendor.device=Infinix-X6815
+-ro.product.vendor.model=Infinix HOT 30
+-ro.product.vendor.name=X6815-OP
+-ro.vendor.product.device=Infinix-X6815
+-ro.vendor.product.model=Infinix HOT 30
+-ro.vendor.product.name=X6815-OP
++ro.product.vendor.device=X6517
++ro.product.vendor.model=Infinix NOTE 11
++ro.product.vendor.name=X6517-OP
++ro.vendor.product.device=X6517
++ro.vendor.product.model=Infinix NOTE 11
++ro.vendor.product.name=X6517-OP
+
+@@ VENDOR FINGERPRINT @@
+-ro.vendor.build.fingerprint=Infinix/X6815-OP/Infinix-X6815:13/TP1A.220624.014/240120V1234:user/release-keys
++ro.vendor.build.fingerprint=Infinix/X6517-OP/X6517:13/TP1A.220624.014/240115V890:user/release-keys
+
+@@ HARDWARE PLATFORM @@
+ ro.hardware=mt6769
+ ro.board.platform=mt6769
+ ro.soc.manufacturer=MediaTek
+ ro.soc.model=MT6769H
+
+@@ CAMERA PROPERTIES (DEVICE SPECIFIC - KEEP FROM NOTE 11) @@
+# These vary by device camera sensors
+-vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.transsion.camera
+-vendor.camera.hal1.packagelist=com.android.camera
+-persist.vendor.camera.preview.size=1920x1080
++vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera
++vendor.camera.hal1.packagelist=com.android.camera
++persist.vendor.camera.preview.size=1920x1080
+
+@@ AUDIO PROPERTIES (DEVICE SPECIFIC - KEEP FROM NOTE 11) @@
+# Audio routing differs by device PCB layout
+-ro.vendor.audio.sdk.fluencetype=fluence
+-persist.vendor.audio.fluence.voicecall=true
++ro.vendor.audio.sdk.fluencetype=none
++persist.vendor.audio.fluence.voicecall=false
+
+@@ DISPLAY PROPERTIES @@
+-ro.vendor.display.default_fps=90
++ro.vendor.display.default_fps=60
+
+@@ RADIO PROPERTIES (CRITICAL - KEEP FROM NOTE 11) @@
+# IMEI and modem calibration are device-specific
+# DO NOT change these from target device
+ persist.vendor.radio.multisim.config=dsds
+ ro.vendor.radio.max.multisim=dsds
+ persist.vendor.radio.mtk_ps2_rat=L/W/G
+ persist.vendor.radio.mtk_ps3_rat=G
+
+@@ MTK SPECIFIC @@
+ ro.vendor.mtk.platform=MT6769
+ ro.vendor.mtk_config_max_dram_size=0x800000000
+-ro.vendor.mtk_release_model=HOT30
++ro.vendor.mtk_release_model=NOTE11
+
+# =============================================================================
+# PROPERTIES TO PRESERVE FROM SOURCE (Android 13)
+# =============================================================================
+
+# These should NOT be changed - keep from Hot 30 source
+
+# Treble
+ro.treble.enabled=true
+ro.actionable_compatible_property.enabled=true
+
+# VNDK
+ro.vndk.version=33
+ro.product.first_api_level=33
+
+# Apex
+ro.apex.updatable=true
+
+# Mainline modules
+ro.support_one_handed_mode=true
+
+# Bluetooth
+bluetooth.profile.asha.central.enabled=true
+bluetooth.profile.a2dp.source.enabled=true
+bluetooth.profile.avrcp.target.enabled=true
+bluetooth.profile.bas.client.enabled=true
+bluetooth.profile.gatt.enabled=true
+bluetooth.profile.hfp.ag.enabled=true
+bluetooth.profile.hid.device.enabled=true
+bluetooth.profile.hid.host.enabled=true
+bluetooth.profile.map.server.enabled=true
+bluetooth.profile.opp.enabled=true
+bluetooth.profile.pan.nap.enabled=true
+bluetooth.profile.pan.panu.enabled=true
+bluetooth.profile.pbap.server.enabled=true
+bluetooth.profile.sap.server.enabled=true
+
+# Zygote
+ro.zygote=zygote64_32
+
+# Dalvik heap (adjust based on RAM if needed)
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=256m
+dalvik.vm.heapsize=512m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=8m
+
+# =============================================================================
+# PRODUCT BUILD.PROP CHANGES
+# =============================================================================
+
+--- product/build.prop (Hot 30 - Source)
++++ product/build.prop (Note 11 - Adapted)
+
+@@ DEVICE IDENTITY @@
+-ro.product.product.device=Infinix-X6815
+-ro.product.product.model=Infinix HOT 30
+-ro.product.product.name=X6815-OP
++ro.product.product.device=X6517
++ro.product.product.model=Infinix NOTE 11
++ro.product.product.name=X6517-OP
+
+@@ PRODUCT LOCALE (UNCHANGED) @@
+ ro.product.locale=en-US
+
+@@ PRODUCT APPS (MAY NEED ADJUSTMENT) @@
+# Some OEM apps may be device-specific
+# Review and keep Note 11 specific apps if needed
+
+# =============================================================================
+# SYSTEM_EXT BUILD.PROP CHANGES
+# =============================================================================
+
+--- system_ext/build.prop (Hot 30 - Source)
++++ system_ext/build.prop (Note 11 - Adapted)
+
+@@ DEVICE IDENTITY @@
+-ro.product.system_ext.device=Infinix-X6815
+-ro.product.system_ext.model=Infinix HOT 30
+-ro.product.system_ext.name=X6815-OP
++ro.product.system_ext.device=X6517
++ro.product.system_ext.model=Infinix NOTE 11
++ro.product.system_ext.name=X6517-OP
+
+# =============================================================================
+# USAGE INSTRUCTIONS
+# =============================================================================
+
+# To apply these changes:
+
+# Method 1: Using build_prop_adapter.py (recommended)
+python3 scripts/build_prop_adapter.py \
+    --source hot30/system/build.prop \
+    --target note11/system/build.prop \
+    --output adapted_system_build.prop \
+    --patch build_prop_changes.patch
+
+# Method 2: Manual editing
+# 1. Extract build.prop from each partition
+# 2. Apply changes shown above
+# 3. Copy back into partition before rebuilding
+
+# Method 3: Using sed for batch replacement
+# sed -i 's/Infinix-X6815/X6517/g' build.prop
+# sed -i 's/HOT 30/NOTE 11/g' build.prop
+# sed -i 's/X6815-OP/X6517-OP/g' build.prop
+
+# =============================================================================
+# VERIFICATION
+# =============================================================================
+
+# After applying changes, verify:
+# 1. Device identity correct: adb shell getprop | grep ro.product
+# 2. Android version correct: adb shell getprop ro.build.version.release
+# 3. Fingerprint valid: adb shell getprop ro.build.fingerprint
+# 4. No typos or syntax errors in build.prop
+
+# =============================================================================
+# WARNINGS
+# =============================================================================
+
+# CRITICAL:
+# - DO NOT modify IMEI-related properties
+# - DO NOT change ro.hardware or ro.board.platform
+# - DO NOT modify persist.vendor.radio.imei or persist.vendor.radio.meid
+# - KEEP modem calibration properties from target device
+# - TEST thoroughly after applying changes
